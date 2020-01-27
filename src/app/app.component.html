@@ -1,0 +1,61 @@
+<head>
+  <title>IT255-DZ05-3496</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <div class="container mt-5 mb-5">
+    <div class="" style="text-align:center; font-family: 'Arial'">
+      <h5 class="card-header info-color white-text text-center py-4">
+        <strong>IT255-DZ05-3496</strong>
+      </h5>
+      <div class="card-body px-lg-5 pt-0">
+        <form class="text-center" style="color: #757575;" action="#!" [formGroup]="form">
+          <div class="md-form">
+            <label for="type" style="color: #000000;" class="labele">Naziv Sobe:</label>
+            <input required id="nazivsobe" class="form-control" style="text-align:center" #newtip placeholder="Unesite naziv sobe"
+              name="type" formControlName="nazivSobeForma"
+              [ngClass]="{'is-invalid': form.get('nazivSobeForma').touched && form.get('nazivSobeForma').invalid}">
+            <div *ngIf="form.get('nazivSobeForma').touched && form.get('nazivSobeForma').invalid"
+              class="invalid-feedback">
+              <div *ngIf="form.get('nazivSobeForma').errors.required">Polje "Naziv Sobe" je obavezao!</div>
+              <div *ngIf="form.get('nazivSobeForma').errors.minlength">Naziv Sobe mora imati najmanje 6 karaktera!</div>
+            </div>
+          </div>
+          <div class="md-form">
+            <label for="price" style="color: #000000;" class="labele">Cena Sobe:</label>
+            <input required id="cenasobe" type="number" class="form-control" style="text-align:center" #newcena
+              placeholder="Unesite cenu sobe" name="cena" formControlName="cenaSobeForma"
+              [ngClass]="{'is-invalid': form.get('cenaSobeForma').touched && form.get('cenaSobeForma').invalid}">
+            <div class="invalid-feedback">
+              <div>Polje "Cena" je obavezno!</div>
+            </div>
+          </div>
+          <div class="md-form">
+            <label for="price" style="color: #000000;" class="labele">Broj Noci:</label>
+            <input required id="brojnoci" type="number" class="form-control" style="text-align:center" #newbrojnoci
+              placeholder="Unesite broj noci" name="brojnoci" formControlName="brojnociSobeForma"
+              [ngClass]="{'is-invalid': form.get('brojnociSobeForma').touched && form.get('brojnociSobeForma').invalid}">
+            <div class="invalid-feedback">
+              <div>Polje "Broj noci" je obavezno!!</div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+            (click)="addRoom(newtip,newcena, newbrojnoci)" [disabled]="!form.valid">UNESI</button>
+          <button type="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+            (click)="random()">Promena redosleda soba</button>
+        </form>
+        <div>
+          <div class="md-form">
+            <h3>~~Pretraga Soba po ceni~~</h3>
+            <input [(ngModel)]="price" class="form-control" placeholder="CENA" />
+          </div>
+          <div class="container mt-5 mb-5" *ngFor="let soba of sobe | mypipe : price; index as i;">
+            <room class="container mt-5 mb-5" (roomToDelete)="removeRoom($event)" (updateRoom)="updateRoom($event)"
+              [soba]="soba"></room>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
